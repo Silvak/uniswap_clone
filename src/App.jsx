@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import CryptoHome from "./Pages/CryptoHome";
+import CryptoDetail from './Pages/CryptoDetail';
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
-    <div className="">
-      <h1 className="text-3xl font-bold underline text-red-200">
-        Hello world!
-      </h1>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<CryptoHome />} />
+        <Route path="/coin/:id" element={<CryptoDetail />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
