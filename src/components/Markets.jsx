@@ -1,16 +1,17 @@
 import useAxios from "../hooks/useAxios";
 import Coin from "./Coin";
 import { useState } from "react";
+import data from "../data";
 
 const Markets = () => {
   /* Con este codigo hacemos el filtrado en la searchBar de forma dinamica igual que en Unisw. el código utiliza la biblioteca "axios" y el hook "useAxios" 
   para obtener datos de la API de Coingecko, y utiliza el hook "useState" para 
   almacenar la cadena de búsqueda del usuario. Cuando el usuario ingresa una cadena de búsqueda,
    los datos de respuesta se filtran y se actualiza el estado del componente con los resultados filtrados. */
-  const { response, setResponse, responseFiltered, setResponseFiltered } =
-    useAxios(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    );
+  // const { response, setResponse, responseFiltered, setResponseFiltered } =
+  //   useAxios(
+  //     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=id&category=coin&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+  //   );
 
   const [search, setSearch] = useState("");
 
@@ -19,9 +20,25 @@ const Markets = () => {
     filtered(e.target.value);
   };
 
-  const filtered = () => {
+  // const filtered = () => {
+  //   if (search.length > 1) {
+  //     var resultsSearch = response.filter((coin) => {
+  //       if (
+  //         coin.name.toLowerCase().includes(search.toLowerCase()) ||
+  //         coin.symbol.toLowerCase().includes(search.toLowerCase())
+  //       ) {
+  //         return coin;
+  //       }
+  //     });
+  //     setResponseFiltered(resultsSearch);
+  //   } else {
+  //     setResponseFiltered("");
+  //   }
+  // };
+
+    const filtered = () => {
     if (search.length > 1) {
-      var resultsSearch = response.filter((coin) => {
+      var resultsSearch = data.filter((coin) => {
         if (
           coin.name.toLowerCase().includes(search.toLowerCase()) ||
           coin.symbol.toLowerCase().includes(search.toLowerCase())
@@ -29,11 +46,15 @@ const Markets = () => {
           return coin;
         }
       });
-      setResponseFiltered(resultsSearch);
+      setDataFiltered(resultsSearch);
     } else {
-      setResponseFiltered("");
+      setDataFiltered("");
     }
   };
+
+  const [dataFiltered, setDataFiltered] = useState("");
+
+
 
   return (
     <div>
@@ -79,11 +100,11 @@ const Markets = () => {
         </div>
       </div>
       <section className="flex flex-col  shadow-lg rounded-b-md mr-20  border-gray-300 p-4">
-        {responseFiltered
-          ? responseFiltered?.map((coin, index) => (
+        {data
+          ? data?.map((coin, index) => (
               <Coin coin={coin} key={index} index={index + 1} />
             ))
-          : response?.map((coin, index) => (
+          : data?.map((coin, index) => (
               <Coin coin={coin} key={index} index={index + 1} />
             ))}
       </section>

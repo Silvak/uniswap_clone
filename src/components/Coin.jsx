@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 
 
+
 const Coin = ({ coin,index }) => {
   return (
     <Link to={`/tokens/${coin.id}`}>

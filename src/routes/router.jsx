@@ -6,8 +6,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import ErrorPage from "../pages/ErrorPage";
 import Tokens from "../Pages/Tokens";
-import CryptoDetail from "../Pages/CryptoDetail";
-import TokensDetail from "../components/TokensDetail";
+import Details from "../components/Details"
 
 
 /* Set routes in router */
@@ -26,7 +25,7 @@ export const router = createBrowserRouter([
         element: <Tokens />,
         children: [{
           path:":id",
-          element: <TokensDetail/>
+          element: <Details/>
         }]
       },
       {
