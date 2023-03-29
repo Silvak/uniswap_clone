@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 
 
 const useAxios = (param) => {
+  const  [responseFiltered, setResponseFiltered] = useState(null)
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,7 +30,7 @@ const useAxios = (param) => {
   }, []);
 
   return {
-    response, loading, error
+    response, loading, error, setResponse, responseFiltered, setResponseFiltered
   }
 }
 

@@ -20,5 +20,5 @@ body {
 
 /* Dark mode #131727  #070815*/
 .dark {
-  @apply w-screen h-screen bg-gradient-to-b from-[#131727] to-[#070815] text-[#f5f6fc];
+  @apply w-screen h-full bg-gradient-to-b from-[#131727] to-[#070815] text-[#f5f6fc];
 }

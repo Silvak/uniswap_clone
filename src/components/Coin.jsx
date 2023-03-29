@@ -3,16 +3,19 @@ import { TrendingDown, TrendingUp } from "../icons/icons";
 import { Link } from "react-router-dom";
 
 
-const Coin = ({ coin }) => {
+
+
+const Coin = ({ coin,index }) => {
   return (
-    <Link to={`/coin/${coin.id}`}>
-      <div className="grid grid-flow-cols-3 sm:grid-cols-4 font-light p-2   hover:bg-gray-200">
+    <Link to={`/tokens/${coin.id}`}>
+      <div className="grid grid-flow-cols-3 sm:grid-cols-4 font-light p-2   hover:bg-gray-600">
         <div className="flex item-center gap-1 w-full">
-          <img className="w-6" src={coin.image} alt={coin.name} />
+          <p className="mr-8">{index}</p>
+          <img className="w-6 mr-2" src={coin.image} alt={coin.name} />
           <p>{coin.name}</p>
           <span className="text-transform: uppercase">({coin.symbol})</span>
         </div>
-        <span className="w-full text-center">
+        <span className="w-full text-start ml-20">
           {currencyFormat(coin.current_price)}
         </span>
         <span

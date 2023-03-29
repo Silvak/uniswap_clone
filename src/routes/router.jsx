@@ -1,9 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 /* Pages */
 import App from "../App";
+// import CryptoHome from "../Pages/CryptoHome";
+// import Tokens from "../pages/Tokens";
 import Home from "../pages/Home";
-import Tokens from "../pages/Tokens";
 import ErrorPage from "../pages/ErrorPage";
+import Tokens from "../Pages/Tokens";
+import CryptoDetail from "../Pages/CryptoDetail";
+import TokensDetail from "../components/TokensDetail";
+
 
 /* Set routes in router */
 export const router = createBrowserRouter([
@@ -14,15 +19,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "swap",
-        element: <Tokens />,
+        element: <Home />,
       },
       {
         path: "tokens",
         element: <Tokens />,
+        children: [{
+          path:":id",
+          element: <TokensDetail/>
+        }]
       },
       {
         path: "nft",
-        element: <Tokens />,
+        element: <Home />,
       },
     ],
   },

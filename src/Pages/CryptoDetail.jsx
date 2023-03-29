@@ -3,7 +3,7 @@ import CoinDetails from "../components/CoinDetails"
 
 const CryptoDetail = () => {
   return (
-    <div className="wrapper-container mt-20">
+    <div className="wrapper-container">
     <HistoryChart />
     <CoinDetails />
     </div>
