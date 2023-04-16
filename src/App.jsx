@@ -18,14 +18,14 @@ function App() {
 
   return (
     <div
-      className={`w-full min-h-screen duration-200 ease-in-out
+      className={`w-full min-h-screen transition duration-200 ease-in-out mt-[72px]
       ${darkMode ? "dark" : ""}`}
     >
       {/* Dinamic Navbar */}
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       {/* Dinamic Conetent */}
-      <div className={`${navigation.state === "loading" ? "loading" : ""}`}>
+      <div className={``}>
         <Layout>
           <Outlet />
         </Layout>

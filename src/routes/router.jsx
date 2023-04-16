@@ -7,7 +7,7 @@ import Home from "../pages/Home";
 import Swap from "../pages/Swap";
 import NFT from "../pages/NFT";
 import ErrorPage from "../pages/ErrorPage";
-import Tokens from "../Pages/Tokens";
+import Tokens from "../pages/Tokens";
 import Details from "../components/Details";
 
 /* Set routes in router */

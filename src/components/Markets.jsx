@@ -60,7 +60,7 @@ const Markets = () => {
       <h1 className="text-2xl mb-8 ">Top tokens on Poligonswap</h1>
 
       {/* Grid */}
-      <section className="flex flex-col w-[100vw] h-[600px] max-w-[1200px] overflow-x-hidden rounded-md border border-gray-200/20">
+      <section className="flex flex-col w-[100vw]  max-w-[1200px] overflow-x-hidden rounded-md border border-gray-200/20">
         {/* List token name */}
         <div className="flex items-centerjustify-between px-6 border-b border-gray-200/20 dark:bg-[#0D111C] rounded-t-md text-gray-500 text-sm h-[48px]">
           {listName.map((element, index) => (
