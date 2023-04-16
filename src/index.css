@@ -14,6 +14,11 @@
   --text-light: #fafafa; /* zinc-50 */
 }
 
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
   font-family: "Inter", sans-serif;
 }

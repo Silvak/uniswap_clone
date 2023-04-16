@@ -2,24 +2,31 @@ import { currencyFormat, percentageFormat, currencyBillion } from "../utils";
 import { TrendingDown, TrendingUp } from "../icons/icons";
 import { Link } from "react-router-dom";
 
-
-
-
-
-const Coin = ({ coin,index }) => {
+const Coin = ({ coin, index }) => {
   return (
     <Link to={`/tokens/${coin.id}`}>
-      <div className="grid grid-flow-cols-3 sm:grid-cols-4 font-light p-2   hover:bg-gray-600">
-        <div className="flex item-center gap-1 w-full">
-          <p className="mr-8">{index}</p>
-          <img className="w-6 mr-2" src={coin.image} alt={coin.name} />
-          <p>{coin.name}</p>
-          <span className="text-transform: uppercase">({coin.symbol})</span>
+      <div className="grid grid-flow-col items-center h-[64px] hover:bg-gray-600/20  duration-200 ease-in-out">
+        {/* Token name Field */}
+        <div className="grid grid-cols-4 gap-1 w-[200px]">
+          <p className="">{index}</p>
+          <div className="h-[24px] w-[24px]">
+            <img
+              className="w-full object-contain"
+              src={coin.image}
+              alt={coin.name}
+            />
+          </div>
+          <p className="whitespace-nowrap w-[90px] overflow-hidden">
+            {coin.name}
+          </p>
+          <p className="text-gray-600">({coin.symbol.toUpperCase()})</p>
         </div>
-        <span className="w-full text-start ml-20">
-          {currencyFormat(coin.current_price)}
-        </span>
-        <span
+
+        {/* Price */}
+        <p className="">{currencyFormat(coin.current_price)}</p>
+
+        {/* Change */}
+        <p
           className={`flex gap-1 ${
             coin.price_change_percentage_24h < 0
               ? "text-red-400"
@@ -32,9 +39,11 @@ const Coin = ({ coin,index }) => {
             <TrendingUp />
           )}
           {percentageFormat(coin.price_change_percentage_24h)}
-        </span>
-        <div className="hidden sm:block">
-           <span>{currencyBillion(coin.total_volume)}</span>
+        </p>
+
+        {/* Volume */}
+        <div className="hidden sm:flex">
+          <p>{currencyBillion(coin.total_volume)}</p>
         </div>
       </div>
     </Link>

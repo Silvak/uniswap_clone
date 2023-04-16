@@ -3,6 +3,8 @@ import Coin from "./Coin";
 import { useState } from "react";
 import data from "../data";
 
+export const listName = ["#", "Token name", "Price", "Change", "Volume"];
+
 const Markets = () => {
   /* Con este codigo hacemos el filtrado en la searchBar de forma dinamica igual que en Unisw. el código utiliza la biblioteca "axios" y el hook "useAxios" 
   para obtener datos de la API de Coingecko, y utiliza el hook "useState" para 
@@ -14,6 +16,7 @@ const Markets = () => {
   //   );
 
   const [search, setSearch] = useState("");
+  const [dataFiltered, setDataFiltered] = useState("");
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -36,7 +39,7 @@ const Markets = () => {
   //   }
   // };
 
-    const filtered = () => {
+  const filtered = () => {
     if (search.length > 1) {
       var resultsSearch = data.filter((coin) => {
         if (
@@ -52,16 +55,36 @@ const Markets = () => {
     }
   };
 
-  const [dataFiltered, setDataFiltered] = useState("");
-
-
-
   return (
-    <div>
-      <div className="text-2x1 ml-10 mb-8  text-3xl font-sans">
-        Top tokens on Poligonswap
-      </div>
-      <div>
+    <div className="grid place-content-center w-full">
+      <h1 className="text-2xl mb-8 ">Top tokens on Poligonswap</h1>
+
+      {/* Grid */}
+      <section className="flex flex-col w-[100vw] h-[600px] max-w-[1200px] overflow-x-hidden rounded-md border border-gray-200/20">
+        {/* List token name */}
+        <div className="flex items-centerjustify-between px-6 border-b border-gray-200/20 dark:bg-[#0D111C] rounded-t-md text-gray-500 text-sm h-[48px]">
+          {listName.map((element, index) => (
+            <p key={index}>{element}</p>
+          ))}
+        </div>
+
+        {/* List token */}
+        <div className="flex flex-col  dark:bg-[#0D111C]">
+          {data?.map((coin, index) => (
+            <Coin coin={coin} key={index} index={index + 1} />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Markets;
+
+/*
+
+
+     <div>
         <button type="select"></button>
         <div>
           <select name="" id="">
@@ -71,45 +94,20 @@ const Markets = () => {
             <option></option>
           </select>
         </div>
-      <div>
-        {/* search bar */}
-        <div className="hidden lg:flex items-center justify-start">
-          <input
-            type="text"
-            className="border rounded-lg px-4 py-2 w-80 mb-4 text-gray-600 outline-none"
-            value={search}
-            placeholder="Filter tokens"
-            onChange={handleChange}
-          />
-        </div>
       </div>
-      </div>
-      <div className="border-b border-t mx-auto border-r border-l border-gray-300 rounded-t-md text-gray-600 text-sm h-12 flex items-center justify-start">
-        <div className="hidden sm:block text-lg items-start ml-6 ">#</div>
-        <div className="hidden sm:block text-lg items-start  justify-start gap-8 mr- sm:p-8  md:p-12 lg:p-16 xl:p-20">
-          Token Name
-        </div>
-        <div className="hidden sm:block text-lg items-start justify-start gap-8 ml-10 sm:p-8 md:p-12 lg:p-16 xl:p-20">
-          Price
-        </div>
-        <div className="hidden sm:block text-lg items-start justify-start gap-8 ml-7 sm:p-8 md:p-12 lg:p-16 xl:p-20">
-          Change
-        </div>
-        <div className="hidden sm:block text-lg items-start justify-start gap-8 ml-20 sm:p-8 md:p-12 lg:p-16 xl:p-20">
-          Volume
-        </div>
-      </div>
-      <section className="flex flex-col  shadow-lg rounded-b-md mr-20  border-gray-300 p-4">
-        {data
-          ? data?.map((coin, index) => (
-              <Coin coin={coin} key={index} index={index + 1} />
-            ))
-          : data?.map((coin, index) => (
-              <Coin coin={coin} key={index} index={index + 1} />
-            ))}
-      </section>
-    </div>
-  );
-};
 
-export default Markets;
+
+    <div>
+          { search bar }
+          <div className="hidden lg:flex items-center justify-start">
+            <input
+              type="text"
+              className="border rounded-lg px-4 py-2 w-80 mb-4 text-gray-600 outline-none"
+              value={search}
+              placeholder="Filter tokens"
+              onChange={handleChange}
+            />
+          </div>
+    </div>
+
+*/
