@@ -9,6 +9,7 @@ import NFT from "../pages/NFT";
 import ErrorPage from "../pages/ErrorPage";
 import Tokens from "../pages/Tokens";
 import Details from "../components/Details";
+import TokenDetails from "../pages/TokenDetails";
 
 /* Set routes in router */
 export const router = createBrowserRouter([
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ":id",
-            element: <Details />,
+            element: <TokenDetails />,
           },
         ],
       },

@@ -2,7 +2,7 @@ import SwapCard from "../components/SwapCard";
 
 function Swap() {
   return (
-    <div className="pt-8">
+    <div className="">
       <SwapCard />
     </div>
   );

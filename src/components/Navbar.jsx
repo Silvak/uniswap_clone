@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { v4 as uuid } from "uuid";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 
 export const navMenu = [
   { title: "Swap", route: "/swap", icon: <BsFillSunFill /> },
@@ -9,6 +9,7 @@ export const navMenu = [
 ];
 
 function Navbar(props) {
+  const navigate = useNavigate();
   const location = useLocation();
   const currentLocation = location.pathname.split("/")[1];
   const [onScroll, setOnScroll] = useState(null);
@@ -17,7 +18,7 @@ function Navbar(props) {
   const handleScroll = () => {
     const scrollPosition = window.scrollY; // => scroll position
     //console.log(Math.round(scrollPosition));
-    if (scrollPosition > 100) {
+    if (scrollPosition > 40) {
       setOnScroll(true);
     } else {
       setOnScroll(false);
@@ -38,20 +39,32 @@ function Navbar(props) {
       onScroll={handleScroll}
       className={`${
         onScroll
-          ? "backdrop-blur-xl bg-white/80 dark:bg-[#0D111C]/80 border-b-[1px] order-gray-800/10 dark:border-gray-200/10"
+          ? "backdrop-blur-lg bg-white/80 dark:bg-[#0D111C]/90 border-b-[1px] order-gray-800/10 dark:border-gray-200/10"
           : "border-b border-gray-900/0"
       }  fixed top-0 left-0 flex justify-between items-center w-full h-[72px] bg-white dark:bg-transparent  px-4 py-4 z-50 `}
     >
       {/* Logo tipo & Menu */}
-      <div className="flex items-center h-full">
+      <div className="flex items-center h-full select-none cursor-pointer">
         {/* Logo */}
-        <div className="h-full min-w-[152px] pr-8">
+        <div
+          onClick={() => navigate("/tokens")}
+          className="h-full min-w-[152px] pr-8 "
+        >
           <img
-            className="h-full w-auto object-contain"
+            className="hidden sm:block h-full w-auto object-contain"
             src={
               props.darkMode
                 ? "/brand/small/imagotipo_color.png"
                 : "/brand/small/imagotipo_color_dark.png"
+            }
+            alt=""
+          />
+          <img
+            className="block sm:hidden h-full w-auto object-contain"
+            src={
+              props.darkMode
+                ? "/brand/small/logo_color.png"
+                : "/brand/small/logo_color.png"
             }
             alt=""
           />

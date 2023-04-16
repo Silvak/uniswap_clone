@@ -1,13 +1,8 @@
-import HistoryChart from "../components/HistoryChart";
-import CoinDetails from "../components/CoinDetails";
+//import HistoryChart from "../components/HistoryChart";
+//import CoinDetails from "../components/CoinDetails";
 
-const TokenDetails = () => {
-  return (
-    <div className="wrapper-container">
-      <HistoryChart />
-      <CoinDetails />
-    </div>
-  );
-};
+function TokenDetails(props) {
+  return <div className="wrapper-container"></div>;
+}
 
 export default TokenDetails;
