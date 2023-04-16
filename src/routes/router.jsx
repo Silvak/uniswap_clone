@@ -10,6 +10,7 @@ import ErrorPage from "../pages/ErrorPage";
 import Tokens from "../pages/Tokens";
 import Details from "../components/Details";
 import TokenDetails from "../pages/TokenDetails";
+import Disclaimer from "../pages/Disclaimer";
 
 /* Set routes in router */
 export const router = createBrowserRouter([
@@ -25,16 +26,14 @@ export const router = createBrowserRouter([
       {
         path: "tokens",
         element: <Tokens />,
-        children: [
-          {
-            path: ":id",
-            element: <TokenDetails />,
-          },
-        ],
       },
       {
-        path: "nfts",
-        element: <NFT />,
+        path: "tokens/:id",
+        element: <TokenDetails />,
+      },
+      {
+        path: "disclaimer",
+        element: <Disclaimer />,
       },
     ],
   },

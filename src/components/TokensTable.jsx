@@ -40,7 +40,7 @@ function TokensTable(props) {
   const navigate = useNavigate();
   // max-w-[1200px]
   return (
-    <div className="w-full border border-gray-300 dark:border-gray-300/20 dark:bg-[#0D111C] rounded-xl">
+    <div className="w-full border border-gray-300 dark:border-gray-300/20 dark:bg-[#0D111C] rounded-xl select-none">
       {/* Titles */}
       <div className="flex justify-between items-center px-3 h-[48px] border-b border-gray-300 dark:border-gray-300/20">
         <h4 className="flex items-center font-medium dark:text-[#98a1c0] w-[100px] sm:w-[240px] overflow-hidden">
@@ -133,7 +133,7 @@ function TokensTable(props) {
             </p>
 
             {/* Chart */}
-            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full bg-gray-200/10">
+            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full bg-gray-200/10 md:ml-6">
               {" "}
             </div>
           </div>

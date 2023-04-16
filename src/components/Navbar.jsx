@@ -6,6 +6,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 export const navMenu = [
   { title: "Swap", route: "/swap", icon: <BsFillSunFill /> },
   { title: "Tokens", route: "/tokens", icon: <BsFillSunFill /> },
+  { title: "Disclaimer", route: "/disclaimer", icon: <BsFillSunFill /> },
 ];
 
 function Navbar(props) {
@@ -130,7 +131,7 @@ function Navbar(props) {
         <input
           type="text"
           className="w-[360px] h-[45px] px-4 mx-2 py-3 rounded-lg dark:bg-[#242635] border-[1px] border-gray-400/20 outline-none"
-          placeholder="Search tokens and NFT collections "
+          placeholder="Search tokens"
         />
       </div>
 
