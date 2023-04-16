@@ -1,7 +1,7 @@
 import HistoryChart from "../components/HistoryChart";
 import CoinDetails from "../components/CoinDetails";
 
-const CryptoDetail = () => {
+const TokenDetails = () => {
   return (
     <div className="wrapper-container">
       <HistoryChart />
@@ -10,4 +10,4 @@ const CryptoDetail = () => {
   );
 };
 
-export default CryptoDetail;
+export default TokenDetails;

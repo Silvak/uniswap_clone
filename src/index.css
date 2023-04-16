@@ -27,3 +27,10 @@ body {
 .dark {
   @apply w-full h-full bg-gradient-to-b from-[#131727] to-[#070815] text-[#f5f6fc]; /* Side scrolling bug fixed. Causing "w-screen" to change to "w-full" */
 }
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+}

@@ -1,8 +1,9 @@
+import SwapCard from "../components/SwapCard";
+
 function Swap() {
   return (
-    <div>
-      Swap
-      <div className="w-full px-20">asdasd</div>
+    <div className="pt-8">
+      <SwapCard />
     </div>
   );
 }

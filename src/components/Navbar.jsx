@@ -40,7 +40,7 @@ function Navbar(props) {
         onScroll
           ? "backdrop-blur-xl bg-white/80 dark:bg-[#0D111C]/80 border-b-[1px] order-gray-800/10 dark:border-gray-200/10"
           : "border-b border-gray-900/0"
-      }  fixed top-0 left-0 flex justify-between items-center w-full h-[72px] bg-white dark:bg-[#121625]  px-4 py-4 z-50 `}
+      }  fixed top-0 left-0 flex justify-between items-center w-full h-[72px] bg-white dark:bg-transparent  px-4 py-4 z-50 `}
     >
       {/* Logo tipo & Menu */}
       <div className="flex items-center h-full">
@@ -94,7 +94,7 @@ function Navbar(props) {
       <div className="flex items-center justify-end h-full gap-4">
         <button
           onClick={props.toggleDarkMode}
-          className="flex justify-center items-center w-[32px] h-[32px] border rounded-[4px] dark:hover:bg-white/20 hover:bg-black/10"
+          className="flex justify-center items-center w-[38px] h-[38px]  rounded-xl dark:hover:bg-white/20 hover:bg-black/10"
         >
           {props.darkMode ? <BsFillSunFill /> : <BsFillMoonFill />}
         </button>

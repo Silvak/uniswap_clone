@@ -18,14 +18,14 @@ function App() {
 
   return (
     <div
-      className={`w-full min-h-screen transition duration-200 ease-in-out mt-[72px]
+      className={`w-full min-h-screen transition duration-200 ease-in-out
       ${darkMode ? "dark" : ""}`}
     >
       {/* Dinamic Navbar */}
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       {/* Dinamic Conetent */}
-      <div className={``}>
+      <div className={`flex justify-center`}>
         <Layout>
           <Outlet />
         </Layout>
