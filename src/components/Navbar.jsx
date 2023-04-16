@@ -14,6 +14,9 @@ function Navbar(props) {
   const currentLocation = location.pathname.split("/")[1];
   const [onScroll, setOnScroll] = useState(null);
 
+  const userWallet = localStorage.getItem("wallet");
+  const [metaUser, setMetaUser] = useState(userWallet || "");
+
   // Get scroll position
   const handleScroll = () => {
     const scrollPosition = window.scrollY; // => scroll position
@@ -25,8 +28,34 @@ function Navbar(props) {
     }
   };
 
+  //metamask conection
+  const metamaskConnect = () => {
+    if (!metaUser) {
+      ethereum.request({ method: "eth_requestAccounts" }).then((accounts) => {
+        setMetaUser(accounts[0]);
+        localStorage.setItem("wallet", accounts[0]);
+      });
+    } else {
+    }
+  };
+
+  //metamask disconect
+  const metamaskDisconnect = () => {
+    ethereum.request({ method: "eth_accounts" }).then((accounts) => {
+      if (accounts && accounts.length > 0) {
+        console.log("user is connected");
+      } else {
+        console.log("user not connected");
+        localStorage.setItem("wallet", "");
+        setMetaUser("");
+      }
+    });
+  };
+
   //Update position
   useEffect(() => {
+    metamaskDisconnect();
+
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -39,9 +68,11 @@ function Navbar(props) {
       onScroll={handleScroll}
       className={`${
         onScroll
-          ? "backdrop-blur-lg bg-white/80 dark:bg-[#0D111C]/90 border-b-[1px] order-gray-800/10 dark:border-gray-200/10"
+          ? "backdrop-blur-lg bg-white/80 dark:bg-[#0D111C]/90 border-b-[1px] border-gray-800/10 dark:border-gray-200/10"
           : "border-b border-gray-900/0"
-      }  fixed top-0 left-0 flex justify-between items-center w-full h-[72px] bg-white dark:bg-transparent  px-4 py-4 z-50 `}
+      }  fixed top-0 left-0 flex justify-between items-center w-full h-[72px] bg-white ${
+        !onScroll && "dark:bg-transparent"
+      }  px-4 py-4 z-50 `}
     >
       {/* Logo tipo & Menu */}
       <div className="flex items-center h-full select-none cursor-pointer">
@@ -112,8 +143,11 @@ function Navbar(props) {
           {props.darkMode ? <BsFillSunFill /> : <BsFillMoonFill />}
         </button>
 
-        <button className="bg-[#4c82fb]/20 text-[#4c82fb] hover:bg-[#4c82fb]/30 font-bold h-full px-4 rounded-full">
-          Connect
+        <button
+          onClick={metamaskConnect}
+          className="bg-[#4c82fb]/20 text-[#4c82fb] hover:bg-[#4c82fb]/30 font-bold h-full px-4 rounded-full"
+        >
+          {metaUser != "" ? metaUser.substring(0, 8) + "..." : "Connect"}
         </button>
       </div>
     </nav>

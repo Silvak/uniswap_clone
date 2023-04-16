@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 const tokenListTest = [
   "",
@@ -74,7 +75,7 @@ function TokensTable(props) {
       <div className="grid grid-cols-1 gap-1">
         {tokenListTest.map((token, index) => (
           <div
-            key={token}
+            key={uuid()}
             onClick={() => navigate(`/tokens/${index}`)}
             className="flex justify-between items-center h-[64px] hover:bg-gray-500/10 cursor-pointer px-3"
           >

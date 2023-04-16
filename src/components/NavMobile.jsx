@@ -12,7 +12,7 @@ function NavMobile(props) {
   const currentLocation = location.pathname.split("/")[1];
 
   return (
-    <nav
+    <div
       className={`
       fixed bottom-0 left-0 sm:hidden flex justify-between items-center w-full h-[52px] backdrop-blur-lg bg-white/80 dark:bg-[#0D111C]/90 border-t-[1px] border-gray-800/10 dark:border-gray-200/10  px-4 py-4 z-50 `}
     >
@@ -41,7 +41,7 @@ function NavMobile(props) {
           ))}
         </ul>
       </div>
-    </nav>
+    </div>
   );
 }
 
