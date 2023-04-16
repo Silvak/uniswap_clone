@@ -1,44 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { currencyBillion } from "../utils";
+import { FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
+import TokensTableChart from "../components/TokensTableChart";
 
-const tokenListTest = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-];
-
-/*
-{tokenListTest.map((token, index) => (
-          <div key={token} className="h-[64px]">
-            {token}
-          </div>
-        ))}
-
-*/
 function TokensTable(props) {
   const navigate = useNavigate();
-  // max-w-[1200px]
+  const { data } = props;
+
   return (
     <div className="w-full border border-gray-300 dark:border-gray-300/20 dark:bg-[#0D111C] rounded-xl select-none">
       {/* Titles */}
@@ -73,31 +42,35 @@ function TokensTable(props) {
 
       {/* Tokens  */}
       <div className="grid grid-cols-1 gap-1">
-        {tokenListTest.map((token, index) => (
+        {data.map((token, index) => (
           <div
             key={uuid()}
-            onClick={() => navigate(`/tokens/${index}`)}
+            onClick={() => navigate(`/tokens/${index + 1}`)}
             className="flex justify-between items-center h-[64px] hover:bg-gray-500/10 cursor-pointer px-3"
           >
             {/* Token Name Filed */}
             <div className="flex items-center gap-2 w-[240px]">
               <div className="hidden sm:flex justify-center items-center w-[32px] ">
-                <p className="pt-1 dark:text-[#98a1c0] ">{index}</p>
+                <p className="pt-1 dark:text-[#98a1c0] ">{index + 1}</p>
               </div>
               <div className="w-[24px] h-[24px] rounded-full bg-gray-200 overflow-hidden">
-                <img src="" alt="" className="object-cover w-full" />
+                <img src={token.image} alt="" className="object-cover w-full" />
               </div>
               <div className="flex flex-col sm:items-center sm:flex-row">
-                <p className=" font-medium dark:text-white">Token</p>
+                <p className=" font-medium dark:text-white whitespace-nowrap">
+                  {token.name.length > 11
+                    ? token.name.substring(0, 12) + "..."
+                    : token.name}
+                </p>
                 <p className="text-[0.76em] sm:text-sm sm:font-medium sm:ml-2 dark:text-[#98a1c0]/50">
-                  ICETH
+                  {token.symbol.toUpperCase()}
                 </p>
               </div>
             </div>
 
             {/* Price Filed */}
             <div className="flex flex-col font-medium dark:text-white w-[128px] text-right">
-              <p>$20,120.00</p>
+              <p>${token.current_price.toFixed(2)}</p>
               <p
                 className={`text-sm  sm:hidden ${
                   5 > 2
@@ -110,31 +83,38 @@ function TokensTable(props) {
             </div>
 
             {/* Change Filed */}
-            <div className="hidden sm:flex justify-end w-[128px]">
+            <div className=" hidden sm:flex justify-end items-center w-[128px]">
               <p
-                className={`font-medium ${
-                  5 > 2
+                className={`font-medium flex items-center ${
+                  token.market_cap_change_percentage_24h > 0
                     ? "text-green-500 dark:text-green-400/90"
                     : "text-red-500 dark:text-red-400/90"
                 }`}
               >
-                +0.00%
+                <span className="mr-1">
+                  {token.market_cap_change_percentage_24h > 0 ? (
+                    <FiArrowUpRight />
+                  ) : (
+                    <FiArrowDownRight />
+                  )}
+                </span>
+                {token.market_cap_change_percentage_24h.toFixed(2).split("-")}%
               </p>
             </div>
 
             {/* TLV Filed */}
             <p className="hidden md:block font-medium dark:text-white w-[128px] text-right">
-              $328.1M
+              {currencyBillion(token.market_cap)}
             </p>
 
             {/* Volume Filed */}
             <p className="hidden lg:block font-medium dark:text-white w-[128px] text-right">
-              $556.3K
+              ${currencyBillion(token.total_volume)}
             </p>
 
             {/* Chart */}
-            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full bg-gray-200/10 md:ml-6">
-              {" "}
+            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full bg-gray-200/10 pl-4">
+              <TokensTableChart name={token.id} />
             </div>
           </div>
         ))}
