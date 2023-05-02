@@ -1,29 +1,33 @@
 import { useParams } from "react-router";
 import useAxios from "../hooks/useAxios";
 import Loading from "./Loading";
+import MiniChart from "./MiniChart";
 
 const CoinDetails = () => {
   const { id } = useParams();
   const { response } = useAxios(
     `coins/${id}?localization=false&tickers=false&market_data=false&community_data=false&developer_data=true&sparkline=false`
   );
-
+  /*
   if (!response) {
     return <Loading />;
-  }
+  }*/
 
   return (
     <div className="mt-1 item-left m-60">
       <div className="flex gap-2 items-center">
-        <img src={response.image.small} alt={response.name} />
+        <img src={response?.image.small} alt={response?.name} />
         <h1 className="text-2xl text-gray-400 mt-4 mb-2 capitalize font-bold">
-          {response.name}
+          {response?.name}
         </h1>
       </div>
       <p
         className="mt-6 text-gray-300 [&>a]:text-blue-600 [&>a]:underline inline-block sm:block"
-        dangerouslySetInnerHTML={{ __html: response.description.en }}
+        dangerouslySetInnerHTML={{ __html: response?.description.en }}
       ></p>
+      <div>
+        <MiniChart tokenId={id} />
+      </div>
     </div>
   );
 };

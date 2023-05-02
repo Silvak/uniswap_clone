@@ -11,7 +11,6 @@ function TokenDetails(props) {
           Token details
         </h1>
       </article>
-      \
       <Details />
     </div>
   );

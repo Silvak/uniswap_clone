@@ -1,17 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
-import { currencyBillion } from "../utils";
-import { FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
-import TokensTableChart from "../components/TokensTableChart";
-import MiniChart from "./MiniChart";
-
-function TokensTable(props) {
-  const navigate = useNavigate();
-  const { data } = props;
-
-  return (
-    <div className="w-full border border-gray-300 dark:border-gray-300/20 dark:bg-[#0D111C] rounded-xl select-none">
-      {/* Titles */}
+ {/* Titles */}
       <div className="flex justify-between items-center px-3 h-[48px] border-b border-gray-300 dark:border-gray-300/20">
         <h4 className="flex items-center font-medium dark:text-[#98a1c0] w-[100px] sm:w-[240px] overflow-hidden">
           <div className="hidden sm:flex justify-center items-center w-[32px] ">
@@ -46,7 +33,7 @@ function TokensTable(props) {
         {data.map((token, index) => (
           <div
             key={uuid()}
-            onClick={() => navigate(`/tokens/${token.id}`)}
+            onClick={() => navigate(`/tokens/${index + 1}`)}
             className="flex justify-between items-center h-[64px] hover:bg-gray-500/10 cursor-pointer px-3"
           >
             {/* Token Name Filed */}
@@ -75,12 +62,7 @@ function TokensTable(props) {
 
             {/* Price Filed */}
             <div className="flex flex-col font-medium dark:text-white w-[128px] text-right">
-              <p>
-                $
-                {parseFloat(token.priceUsd) > 0.01
-                  ? parseFloat(token.priceUsd).toFixed(2)
-                  : parseFloat(token.priceUsd).toFixed(6)}
-              </p>
+              <p>${token.priceUsd.toFixed(2)}</p>
               <p
                 className={`text-sm  sm:hidden ${
                   5 > 2
@@ -96,19 +78,19 @@ function TokensTable(props) {
             <div className=" hidden sm:flex justify-end items-center w-[128px]">
               <p
                 className={`font-medium flex items-center ${
-                  parseFloat(token.changePercent24Hr) > 0
+                  token.volumeUsd24Hr > 0
                     ? "text-green-500 dark:text-green-400/90"
                     : "text-red-500 dark:text-red-400/90"
                 }`}
               >
                 <span className="mr-1">
-                  {parseFloat(token.changePercent24Hr) > 0 ? (
+                  {token.volumeUsd24Hr > 0 ? (
                     <FiArrowUpRight />
                   ) : (
                     <FiArrowDownRight />
                   )}
                 </span>
-                {parseFloat(token.changePercent24Hr).toFixed(2)}
+                {token.volumeUsd24Hr.toFixed(2).split("-")}%
               </p>
             </div>
 
@@ -119,23 +101,13 @@ function TokensTable(props) {
 
             {/* Volume Filed */}
             <p className="hidden lg:block font-medium dark:text-white w-[128px] text-right">
-              {currencyBillion(token.supply)}
+              ${currencyBillion(token.supply)}
             </p>
 
             {/* Chart */}
-            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full  md:pl-6 xl:pl-2 py-2">
-              <MiniChart tokenId={token.id} change={token.changePercent24Hr} />
+            <div className="hidden lg:flex md:w-[48px] lg:w-[148px] h-full bg-gray-200/10 pl-4">
+              s
             </div>
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-export default TokensTable;
-/*
-
-
-
-*/
