@@ -88,15 +88,24 @@ function TokensTable(props) {
                   ? parseFloat(token.priceUsd).toFixed(2)
                   : parseFloat(token.priceUsd).toFixed(6)}
               </p>
-              <p
-                className={`text-sm  sm:hidden ${
-                  5 > 2
-                    ? "text-green-500 dark:text-green-400/90"
-                    : "text-red-500 dark:text-red-400/90"
-                }`}
-              >
-                +0.00%
-              </p>
+              <div className={`flex justify-end text-sm  sm:hidden `}>
+                <p
+                  className={`font-medium flex items-center ${
+                    parseFloat(token.changePercent24Hr) > 0
+                      ? "text-green-500 dark:text-green-400/90"
+                      : "text-red-500 dark:text-red-400/90"
+                  }`}
+                >
+                  <span className="mr-1">
+                    {parseFloat(token.changePercent24Hr) > 0 ? (
+                      <FiArrowUpRight />
+                    ) : (
+                      <FiArrowDownRight />
+                    )}
+                  </span>
+                  {parseFloat(token.changePercent24Hr).toFixed(2)}
+                </p>
+              </div>
             </div>
 
             {/* Change Filed */}
