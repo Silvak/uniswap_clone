@@ -4,7 +4,7 @@ import { useLocation, Link } from "react-router-dom";
 
 export const navMenu = [
   { title: "Swap", route: "/swap", icon: <BsFillSunFill /> },
-  { title: "Tokens", route: "/tokens", icon: <BsFillSunFill /> },
+  { title: "Tokens", route: "/", icon: <BsFillSunFill /> },
   { title: "Disclaimer", route: "/disclaimer", icon: <BsFillSunFill /> },
 ];
 

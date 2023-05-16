@@ -7,10 +7,9 @@ import Layout from "./components/Layout";
 
 //## Main Component ##
 function App() {
-  const navigation = useNavigation();
-
   //dark mode state & function
   const [darkMode, setDarkMode] = useState(true);
+
   function toggleDarkMode() {
     setDarkMode((prevDarkMode) => !prevDarkMode);
   }

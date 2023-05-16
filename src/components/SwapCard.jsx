@@ -32,7 +32,7 @@ function SwapCard() {
               placeholder="0"
               className="bg-transparent text-[2em] h-[44px] w-[70%] outline-none appearance-none"
             />
-            <button className="flex justify-between items-center px-1 sm:px-2 w-[30%]  outline-none appearance-none rounded-full font-bold text-white bg-[#5d6785]/40 dark:bg-[#5d6785] cursor-default h-[32px]">
+            <button className="flex justify-between items-center px-1 sm:px-2 w-[30%] min-w-[110px] outline-none appearance-none rounded-full font-bold text-white bg-[#5d6785]/40 dark:bg-[#5d6785] cursor-default h-[32px]">
               <div className="h-[24px] w-[24px] bg-[#5285F6] rounded-full">
                 <img src="" alt="" />
               </div>
@@ -49,7 +49,7 @@ function SwapCard() {
               placeholder="0"
               className="bg-transparent text-[2em] h-[44px] w-[60%] outline-none"
             />
-            <button className="flex justify-between px-2 w-[40%] items-center outline-none appearance-none rounded-full font-bold text-white bg-[#5285F6] cursor-default text-lg h-[32px]">
+            <button className="flex justify-between px-2 w-[40%] min-w-[144px] items-center outline-none appearance-none rounded-full font-bold text-white bg-[#5285F6] cursor-default text-lg h-[32px]">
               <p className="text-sm md:text-lg whitespace-nowrap">
                 Select token
               </p>
@@ -75,7 +75,7 @@ function SwapCard() {
       </div>
 
       {/* OVER MESSAGE */}
-      <div className="flex justify-center items-center absolute top-0 left-0 w-full h-full bg-white/80 dark:bg-[#0D111C]/80  border border-gray-300 dark:border-gray-300/20 rounded-xl select-none">
+      <div className="flex justify-center items-center absolute top-0 left-0 w-full h-[342px] bg-white/80 dark:bg-[#0D111C]/80  border border-gray-300 dark:border-gray-300/20 rounded-xl select-none">
         <p className="text-black/80 dark:text-white/40  text-lg">
           Temporarily disabled by update
         </p>

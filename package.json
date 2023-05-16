@@ -1,6 +1,7 @@
 {
-  "name": "my-project",
+  "name": "poligonswap",
   "private": true,
+  "homepage": "https://app.poligonswap.com",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

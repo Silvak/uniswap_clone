@@ -5,7 +5,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 
 export const navMenu = [
   { title: "Swap", route: "/swap", icon: <BsFillSunFill /> },
-  { title: "Tokens", route: "/tokens", icon: <BsFillSunFill /> },
+  { title: "Tokens", route: "/", icon: <BsFillSunFill /> },
   { title: "Disclaimer", route: "/disclaimer", icon: <BsFillSunFill /> },
 ];
 
@@ -78,8 +78,8 @@ function Navbar(props) {
       {/* Logo tipo & Menu */}
       <div className="flex items-center h-full select-none cursor-pointer">
         {/* Logo */}
-        <div
-          onClick={() => navigate("/tokens")}
+        <a
+          href="http://poligonswap.com/"
           className="h-full min-w-[152px] pr-8 "
         >
           <img
@@ -100,7 +100,7 @@ function Navbar(props) {
             }
             alt=""
           />
-        </div>
+        </a>
 
         {/* Nav Menu */}
         <ul className="hidden  sm:flex items-center h-full">
@@ -127,7 +127,8 @@ function Navbar(props) {
       </div>
 
       {/* search bar */}
-      <div className="hidden lg:flex items-center justify-center">
+      {/* <div className="hidden lg:flex items-center justify-center">*/}
+      <div className="hidden">
         <input
           type="text"
           className="w-[360px] h-[45px] px-4 mx-2 py-3 rounded-lg dark:bg-[#242635] border-[1px] border-gray-400/20 outline-none"

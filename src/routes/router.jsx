@@ -1,8 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 /* Pages */
 import App from "../App";
-// import CryptoHome from "../Pages/CryptoHome";
-// import Tokens from "../pages/Tokens";
 import Home from "../pages/Home";
 import Swap from "../pages/Swap";
 import NFT from "../pages/NFT";
@@ -24,11 +22,11 @@ export const router = createBrowserRouter([
         element: <Swap />,
       },
       {
-        path: "tokens",
+        path: "",
         element: <Tokens />,
       },
       {
-        path: "tokens/:id",
+        path: "details/:id",
         element: <TokenDetails />,
       },
       {

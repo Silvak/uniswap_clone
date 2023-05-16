@@ -25,7 +25,7 @@ function ErrorPage() {
         <p className="text-sm text-red-600/70 mb-4">
           <i>{error.statusText || error.message}</i>
         </p>
-        <Link to="/tokens" className="text-md underline text-blue-500">
+        <Link to="/" className="text-md underline text-blue-500">
           Go to Homepage
         </Link>
       </div>

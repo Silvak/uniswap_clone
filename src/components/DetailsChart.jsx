@@ -12,7 +12,7 @@ import MiniLoading from "./MiniLoading";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 
-function MiniChart(props) {
+function DetailsChart(props) {
   const [data, setData] = useState([]);
   const customPoligonTokenName = "Koolinart";
 
@@ -23,7 +23,7 @@ function MiniChart(props) {
     axios
       .get(`https://api.coincap.io/v2/assets/${token}/history?interval=d1`)
       .then((res) => {
-        setData(res.data.data.slice(0, 50));
+        setData(res.data.data.slice(0, 500));
       });
   }, []);
 
@@ -43,7 +43,7 @@ function MiniChart(props) {
       {
         data: dataPrice,
         backgroundColor: "transparent",
-        borderColor: props.change > 0 ? "#45CB77" : "#E2696A",
+        borderColor: "#0099ff",
         pointBorderColor: "transparent",
         pointBorderWidth: 1,
       },
@@ -62,11 +62,10 @@ function MiniChart(props) {
         display: false,
       },
     },
-
     elements: {
       line: {
         tension: 0,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: "#0099ff",
       },
       point: { radius: 0 },
@@ -80,9 +79,9 @@ function MiniChart(props) {
     return <MiniLoading />;
   }
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-start items-center w-[90vw] lg:w-[94%]">
       <Line data={dataTest} options={options}></Line>
     </div>
   );
 }
-export default MiniChart;
+export default DetailsChart;

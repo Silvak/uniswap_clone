@@ -13,7 +13,8 @@ export function percentageFormat(num) {
  * decimal y la letra correspondiente (B, M o K). Si el número es menor que mil, devuelve el número con dos decimales y el signo de dólar ($).
  *  Por ejemplo, si llama a currencyFormat(11419414299), devolverá "$11.4B".
  * **/
-export function currencyBillion(num) {
+export function currencyBillion(num2) {
+  const num = parseFloat(num2);
   const billion = 1000000000;
   const million = 1000000;
   const thousand = 1000;
