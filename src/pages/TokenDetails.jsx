@@ -65,6 +65,7 @@ function TokenDetails(props) {
     fetchCustomTokens();
 
     if (id != "TesToken") {
+      //        ^^^^ change this to your token name
       getData(id);
     }
   }, []);

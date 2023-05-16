@@ -42,15 +42,19 @@ function Navbar(props) {
 
   //metamask disconect
   const metamaskDisconnect = () => {
-    ethereum.request({ method: "eth_accounts" }).then((accounts) => {
-      if (accounts && accounts.length > 0) {
-        console.log("user is connected");
-      } else {
-        console.log("user not connected");
-        localStorage.setItem("wallet", "");
-        setMetaUser("");
-      }
-    });
+    try {
+      ethereum.request({ method: "eth_accounts" }).then((accounts) => {
+        if (accounts && accounts.length > 0) {
+          console.log("user is connected");
+        } else {
+          console.log("user not connected");
+          localStorage.setItem("wallet", "");
+          setMetaUser("");
+        }
+      });
+    } catch (error) {
+      console.log("user not connected");
+    }
   };
 
   //Update position
