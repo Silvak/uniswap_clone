@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700&display=swap");
+
+/* Main Styles */
+:root {
+  --bg-dark: #1f2937; /* gray-800 */
+  --bg-light: #fafafa; /* zinc-50 */
+
+  --text-dark: #1f2937; /* gray-200 */
+  --text-light: #fafafa; /* zinc-50 */
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+/* Dark mode #131727  #070815*/
+.dark {
+  @apply w-full h-full bg-gradient-to-b from-[#131727] to-[#070815] text-[#f5f6fc]; /* Side scrolling bug fixed. Causing "w-screen" to change to "w-full" */
+}
+
+@layer utilities {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    @apply appearance-none;
+  }
+}
