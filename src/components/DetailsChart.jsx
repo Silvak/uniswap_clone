@@ -19,13 +19,50 @@ function DetailsChart(props) {
   useEffect(() => {
     let token =
       props.tokenId != customPoligonTokenName ? props.tokenId : "uniswap";
+try{
 
     axios
       .get(`https://api.coincap.io/v2/assets/${token}/history?interval=d1`)
       .then((res) => {
-        setData(res.data.data.slice(0, 500));
+      //  setData(res.data.data.slice(0, 500));
+        console.log(res.data.data.slice(0, 500))
+        setData(res.data.data.slice(0, 500))
+      }).catch(()=>{
+
+        setData(  [
+          { date: "2023-01-01", priceUsd: "1.00" },
+          { date: "2023-01-02", priceUsd: "1.01" },
+          { date: "2023-01-03", priceUsd: "1.02" },
+          { date: "2023-01-04", priceUsd: "1.02" },
+          { date: "2023-01-05", priceUsd: "1.04" },
+          { date: "2023-01-06", priceUsd: "1.02" },
+          { date: "2023-01-07", priceUsd: "1.06" },
+          { date: "2023-01-08", priceUsd: "1.07" },
+          { date: "2023-01-09", priceUsd: "1.08" },
+          { date: "2023-01-10", priceUsd: "1.09" },
+          { date: "2023-01-11", priceUsd: "1.02" },
+          
+          { date: "2024-01-12", priceUsd: "1.00" },  
+          { date: "2024-01-01", priceUsd: "1.02" },
+          { date: "2024-01-02", priceUsd: "1.01" },
+          { date: "2024-01-03", priceUsd: "1.02" },
+          { date: "2024-01-04", priceUsd: "1.02" },
+          { date: "2024-01-05", priceUsd: "1.04" },
+          { date: "2024-01-06", priceUsd: "1.05" },
+          { date: "2024-01-07", priceUsd: "1.02" },
+          { date: "2024-01-08", priceUsd: "1.07" },
+          { date: "2024-01-09", priceUsd: "1.08" },
+          { date: "2024-01-10", priceUsd: "1.09" },
+          { date: "2024-01-11", priceUsd: "1.10" },
+          // Agrega más datos aquí según sea necesario
+        ])
       });
+
+     
+} catch(error){
+      }
   }, []);
+
 
   let dataPrice = [];
   data.map((item) => {
@@ -79,7 +116,7 @@ function DetailsChart(props) {
     return <MiniLoading />;
   }
   return (
-    <div className="flex justify-start items-center w-[90vw] lg:w-[94%]">
+    <div className="flex w-full h-full  justify-start items-center lg:w-[94%]">
       <Line data={dataTest} options={options}></Line>
     </div>
   );

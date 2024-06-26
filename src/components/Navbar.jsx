@@ -8,6 +8,7 @@ export const navMenu = [
   { title: "Tokens", route: "/", icon: <BsFillSunFill /> },
   { title: "Disclaimer", route: "/disclaimer", icon: <BsFillSunFill /> },
 ];
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -149,12 +150,7 @@ function Navbar(props) {
           {props.darkMode ? <BsFillSunFill /> : <BsFillMoonFill />}
         </button>
 
-        <button
-          onClick={metamaskConnect}
-          className="bg-[#4c82fb]/20 text-[#4c82fb] hover:bg-[#4c82fb]/30 font-bold h-full px-4 rounded-full"
-        >
-          {metaUser != "" ? metaUser.substring(0, 8) + "..." : "Connect"}
-        </button>
+        <ConnectButton />
       </div>
     </nav>
   );

@@ -45,6 +45,20 @@ const Tokens = () => {
     getData();
   }, []);
 
+  // Add custom token KRt
+  const KRtToken = {
+    image: { url: "https://example.com/krt-token-image.png" },
+    name: "Koolinart Token",
+    symbol: "KNRT",
+    graphClone: "https://example.com/krt-graph",
+    priceUsd: "1.00",
+    changePercent24Hr: "0.005",
+    supply: "10000",
+    volumeUsd24Hr: "700",
+    vwap24Hr: "0.995",
+    marketCapUsd: "10000"
+  };
+
   //filter data for poligon table
   const poligonDataTable = (tokensId, poligonToken) => {
     let arr = data.slice(0, 20);
@@ -56,6 +70,7 @@ const Tokens = () => {
     });
 
     selectedTokens.push(poligonToken);
+    selectedTokens.push(KRtToken);
     return selectedTokens.reverse().slice(0, 5);
   };
 
