@@ -50,9 +50,8 @@ export function UniswapWidget() {
           8453: [JSON_RPC_URL] // Añadido soporte para la red base
         }}
         tokenList={MY_TOKEN_LIST}
-        defaultInputTokenAddress="0x0BEb47f0dDEB603E85DC8882d9bCFCfd327a6469"
+        //defaultInputTokenAddress="0x0BEb47f0dDEB603E85DC8882d9bCFCfd327a6469"
         defaultInputTokenAddress="NATIVE"
-
         defaultOutputTokenAddress={UNI}
       />
     </main>
