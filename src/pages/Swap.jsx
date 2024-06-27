@@ -51,7 +51,6 @@ export function UniswapWidget() {
         }}
         tokenList={MY_TOKEN_LIST}
         defaultInputTokenAddress="NATIVE"
-
         defaultOutputTokenAddress={UNI}
       />
     </main>
