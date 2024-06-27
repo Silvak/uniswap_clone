@@ -32,7 +32,7 @@ const MY_TOKEN_LIST = [
 
 const JSON_RPC_URL = 'https://base-mainnet.infura.io/v3/cb5245cf7c294c0b877ec1a2f5b95de9';
 const TOKEN_LIST = 'https://ipfs.io/ipns/tokens.uniswap.org';
-const UNI = '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270';
+const UNI = '0x4200000000000000000000000000000000000006';
 import { SwapWidget } from '@uniswap/widgets';
 if (typeof window !== "undefined") {
   // @ts-ignore
