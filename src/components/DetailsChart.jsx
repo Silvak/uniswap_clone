@@ -18,61 +18,48 @@ function DetailsChart(props) {
 
   useEffect(() => {
     let token =
-      props.tokenId != customPoligonTokenName ? props.tokenId : "uniswap";
-try{
+      props.tokenId !== customPoligonTokenName ? props.tokenId : "uniswap";
+    try {
+      axios.get(`https://api.coincap.io/v2/assets/${token}/history?interval=d1`)
+        .then((res) => {
+          console.log(res.data.data.slice(0, 500));
+          setData(res.data.data.slice(0, 500));
+        })
+        .catch(() => {
+          setData([
+            { date: "2023-01-01", priceUsd: "1.00" },
+            { date: "2023-01-02", priceUsd: "1.01" },
+            { date: "2023-01-03", priceUsd: "1.02" },
+            { date: "2023-01-04", priceUsd: "1.02" },
+            { date: "2023-01-05", priceUsd: "1.04" },
+            { date: "2023-01-06", priceUsd: "1.02" },
+            { date: "2023-01-07", priceUsd: "1.06" },
+            { date: "2023-01-08", priceUsd: "1.07" },
+            { date: "2023-01-09", priceUsd: "1.08" },
+            { date: "2023-01-10", priceUsd: "1.09" },
+            { date: "2023-01-11", priceUsd: "1.02" },
+            { date: "2024-01-12", priceUsd: "1.00" },
+            { date: "2024-01-01", priceUsd: "1.02" },
+            { date: "2024-01-02", priceUsd: "1.01" },
+            { date: "2024-01-03", priceUsd: "1.02" },
+            { date: "2024-01-04", priceUsd: "1.02" },
+            { date: "2024-01-05", priceUsd: "1.04" },
+            { date: "2024-01-06", priceUsd: "1.05" },
+            { date: "2024-01-07", priceUsd: "1.02" },
+            { date: "2024-01-08", priceUsd: "1.07" },
+            { date: "2024-01-09", priceUsd: "1.08" },
+            { date: "2024-01-10", priceUsd: "1.09" },
+            { date: "2024-01-11", priceUsd: "1.10" },
+            // Agrega más datos aquí según sea necesario
+          ]);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [props.tokenId]);
 
-    axios
-      .get(`https://api.coincap.io/v2/assets/${token}/history?interval=d1`)
-      .then((res) => {
-      //  setData(res.data.data.slice(0, 500));
-        console.log(res.data.data.slice(0, 500))
-        setData(res.data.data.slice(0, 500))
-      }).catch(()=>{
-
-        setData(  [
-          { date: "2023-01-01", priceUsd: "1.00" },
-          { date: "2023-01-02", priceUsd: "1.01" },
-          { date: "2023-01-03", priceUsd: "1.02" },
-          { date: "2023-01-04", priceUsd: "1.02" },
-          { date: "2023-01-05", priceUsd: "1.04" },
-          { date: "2023-01-06", priceUsd: "1.02" },
-          { date: "2023-01-07", priceUsd: "1.06" },
-          { date: "2023-01-08", priceUsd: "1.07" },
-          { date: "2023-01-09", priceUsd: "1.08" },
-          { date: "2023-01-10", priceUsd: "1.09" },
-          { date: "2023-01-11", priceUsd: "1.02" },
-          
-          { date: "2024-01-12", priceUsd: "1.00" },  
-          { date: "2024-01-01", priceUsd: "1.02" },
-          { date: "2024-01-02", priceUsd: "1.01" },
-          { date: "2024-01-03", priceUsd: "1.02" },
-          { date: "2024-01-04", priceUsd: "1.02" },
-          { date: "2024-01-05", priceUsd: "1.04" },
-          { date: "2024-01-06", priceUsd: "1.05" },
-          { date: "2024-01-07", priceUsd: "1.02" },
-          { date: "2024-01-08", priceUsd: "1.07" },
-          { date: "2024-01-09", priceUsd: "1.08" },
-          { date: "2024-01-10", priceUsd: "1.09" },
-          { date: "2024-01-11", priceUsd: "1.10" },
-          // Agrega más datos aquí según sea necesario
-        ])
-      });
-
-     
-} catch(error){
-      }
-  }, []);
-
-
-  let dataPrice = [];
-  data.map((item) => {
-    return dataPrice.push(parseFloat(item.priceUsd).toFixed(2));
-  });
-
-  let dataTime = [];
-  data.map((item) => {
-    return dataTime.push(item.date);
-  });
+  const dataPrice = data.map(item => parseFloat(item.priceUsd).toFixed(2));
+  const dataTime = data.map(item => item.date);
 
   const dataTest = {
     labels: dataTime,
@@ -88,6 +75,8 @@ try{
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     legend: {
       display: false,
     },
@@ -116,9 +105,10 @@ try{
     return <MiniLoading />;
   }
   return (
-    <div className="flex w-full h-full  justify-start items-center lg:w-[94%]">
+    <div className="relative mr-12 w-full h-64">
       <Line data={dataTest} options={options}></Line>
     </div>
   );
 }
+
 export default DetailsChart;

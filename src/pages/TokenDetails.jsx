@@ -1,77 +1,132 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import DetailsChart from "../components/DetailsChart";
-import SwapCard from "../components/SwapCard";
-import axios from "axios";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { currencyBillion } from "../utils";
 import { FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
-import { request } from "graphql-request";
+import { SwapWidget } from "@uniswap/widgets";
+import { createPublicClient, createWalletClient, custom, http } from "viem";
+import { base } from "viem/chains";
+import TokenDataAbi from "../abis/TokenData.json";
+import axios from "axios";
 
 const MY_TOKEN_LIST = [
   {
-  "name": "MyToken",
-  "address": "0x0BEb47f0dDEB603E85DC8882d9bCFCfd327a6469",
-  "symbol": "MKT",
-  "decimals": 18,
-  "chainId": 8453,
-  "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
-},
+    name: "MyToken",
+    address: "0x0BEb47f0dDEB603E85DC8882d9bCFCfd327a6469",
+    symbol: "MKT",
+    decimals: 18,
+    chainId: 8453,
+    logoURI:
+      "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+  },
+  {
+    name: "Wrapped Ether",
+    address: "0x4200000000000000000000000000000000000006",
+    symbol: "WETH",
+    decimals: 18,
+    chainId: 8453,
+    logoURI:
+      "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+  },
+];
 
-{
-  "name": "Wrapped Ether",
-  "address": "0x4200000000000000000000000000000000000006",
-  "symbol": "WETH",
-  "decimals": 18,
-  "chainId": 8453,
-  "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
-}
-]
+const JSON_RPC_URL =
+  "https://base-mainnet.infura.io/v3/5c17da17578a413195e387c9a5cdcfce";
+const UNI = "0x4200000000000000000000000000000000000006";
+const AUTHORIZED_WALLET = "0x899cA5891a0B45699B511c19fAdB09673718fbEE";
+const CONTRACT_ADDRESS = "0xB37B6C6acAa86F01Af983761042c88fc65351a94";
 
-const JSON_RPC_URL = 'https://base-mainnet.infura.io/v3/cb5245cf7c294c0b877ec1a2f5b95de9';
-const TOKEN_LIST = 'https://ipfs.io/ipns/tokens.uniswap.org';
-const UNI = '0x4200000000000000000000000000000000000006';
-import { SwapWidget } from '@uniswap/widgets';
-if (typeof window !== "undefined") {
-  // @ts-ignore
-    window.Browser = {
-      T: () => {
-      }
-    };
-  }
-  
-const TokenInfo = (props) => {
-  return (
-    <div className="flex flex-col">
-      <h3 className="text-gray-500 dark:text-gray-400">
-        {props.title || "Test"}
-      </h3>
-      <p className="text-2xl">{props.info || "$54.1B"}</p>
-    </div>
-  );
-};
+const TokenInfo = ({ title, info }) => (
+  <div className="flex flex-col">
+    <h3 className="text-gray-500 dark:text-gray-400">{title || "Test"}</h3>
+    <p className="text-2xl">{info || "$54.1B"}</p>
+  </div>
+);
 
-// main component
-function TokenDetails(props) {
+const TokenDetails = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [currentAccount, setCurrentAccount] = useState(null);
 
-  const hardcodedTokenData = {
-    image: { url: "https://example.com/krt-token-image.png" },
-    name: "Koolinart Token",
-    symbol: "KNRT",
-    graphClone: "Koolinart Token",
-    priceUsd: "1.00",
-    changePercent24Hr: "0.005",
-    supply: "10000",
-    volumeUsd24Hr: "700",
-    vwap24Hr: "0.995",
-    marketCapUsd: "10000",
+  const publicClient = createPublicClient({
+    chain: base,
+    transport: http(JSON_RPC_URL),
+  });
+
+  useEffect(() => {
+    const connectWallet = async () => {
+      if (window.ethereum) {
+        try {
+          const client = createWalletClient({
+            chain: base,
+            transport: custom(window.ethereum),
+          });
+          const [account] = await client.getAddresses();
+          setCurrentAccount(account);
+        } catch (error) {
+          console.error("Error connecting to wallet", error);
+        }
+      }
+    };
+    connectWallet();
+  }, []);
+  
+  const getTokenDataFromContract = async (tokenId) => {
+
+    try {
+      
+      const data = await publicClient.readContract({
+        address: CONTRACT_ADDRESS,
+        abi: TokenDataAbi,
+        functionName: "getTokenData",
+        args: ["KNRT"],
+      });
+  
+      const isValidNumber = (value) => {
+        const number = parseFloat(value);
+        return !isNaN(number) && isFinite(number);
+      };
+  
+      setData({
+        image: "https://res.cloudinary.com/dug5cohaj/image/upload/v1721236584/dyuh91sa9yz2u7cgelth.svg",
+        name: data.name,
+        symbol: data.symbol,
+        graphClone: data.graphClone,
+        priceUsd: isValidNumber(data.priceUsd) ? parseFloat(data.priceUsd) : 0,
+        changePercent24Hr: isValidNumber(data.changePercent24Hr) ? parseFloat(data.changePercent24Hr) : 0,
+        supply: isValidNumber(data.supply) ? parseFloat(data.supply) : 0,
+        volumeUsd24Hr: isValidNumber(data.volumeUsd24Hr) ? parseFloat(data.volumeUsd24Hr) : 0,
+        vwap24Hr: isValidNumber(data.vwap24Hr) ? parseFloat(data.vwap24Hr) : 0,
+        marketCapUsd: isValidNumber(data.marketCapUsd) ? parseFloat(data.marketCapUsd) : 0,
+      });
+    } catch (error) {
+      console.error("Error fetching token data from contract", error);
+    }
+  };
+  const setTokenDataInContract = async (tokenData) => {
+    try {
+      const client = createWalletClient({
+        chain: base,
+        transport: custom(window.ethereum),
+      });
+console.log(tokenData)
+      const { request } = await publicClient.simulateContract({
+        address: CONTRACT_ADDRESS,
+        abi: TokenDataAbi,
+        functionName: "setTokenData",
+        args: [tokenData],
+        account: currentAccount,
+      });
+
+      await client.writeContract(request);
+    } catch (error) {
+      console.error("Error setting token data in contract", error);
+    }
   };
 
-  //get data from api
   const getData = async (tokenId) => {
     try {
       const res = await axios.get(
@@ -84,49 +139,73 @@ function TokenDetails(props) {
   };
 
   useEffect(() => {
-    if (id === "Koolinart Token") {
-      setData(hardcodedTokenData);
+    if (id === "Koolinart") {
+      getTokenDataFromContract(id);
     } else {
-      const fetchCustomTokens = async () => {
-        const { customtokens } = await request(
-          "https://api-us-east-1-shared-usea1-02.hygraph.com/v2/clh5i4qxh63xb01um95chewyy/master",
-          `
-            {
-              customtokens {
-                image {
-                  url
-                }
-                name
-                symbol
-                graphClone
-                priceUsd
-                changePercent24Hr
-                supply
-                volumeUsd24Hr
-                vwap24Hr
-                marketCapUsd
-              }
-            }
-          `
-        );
-        setData(customtokens[0]);
-      };
-      fetchCustomTokens();
-
-      if (id !== "Koolinart Token") {
-        //        ^^^^ change this to your token name
-        getData(id);
-      }
+      getData(id);
     }
   }, [id]);
 
   if (!data) {
     return <Loading />;
   }
-  return (
-    <article className="grid  grid-cols-1 lg:grid-cols-3 lg:px-4 pb-20">
-      {/* Chart */}
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    setTokenDataInContract([
+      data.image,
+      data.name,
+      data.symbol,
+      data.graphClone,
+      data.priceUsd,
+      data.changePercent24Hr,
+      data.supply,
+      data.volumeUsd24Hr,
+      data.vwap24Hr,
+      data.marketCapUsd,
+    ]);
+  };
+
+  const renderAuthorizedPanel = () => (
+    <div className="flex flex-col p-4 border border-gray-300 rounded-md mt-6">
+      <h2 className="text-xl mb-4">Admin Panel</h2>
+      <div className="flex flex-col gap-4">
+        {Object.keys(data).map((key) => (
+          <div key={key} className="flex flex-col">
+            <label className="text-white">{key}</label>
+            <input
+              className="p-2 border text-black border-gray-300 rounded"
+              type="text"
+              name={key}
+              value={data[key]}
+              onChange={handleInputChange}
+            />
+          </div>
+        ))}
+        <button
+          className="mt-4 p-2 bg-blue-500 text-white rounded"
+          onClick={handleSave}
+        >
+          Save
+        </button>
+        <button
+          className="mt-4 p-2 bg-blue-500 text-white rounded"
+        >
+         Get Real Data
+        </button>
+      </div>
+    </div>
+  );
+
+  return (
+    <article className="grid grid-cols-1 lg:grid-cols-3 lg:px-4 pb-20">
       <div className="flex flex-col col-span-2">
         <a
           href="/"
@@ -138,19 +217,14 @@ function TokenDetails(props) {
           Tokens
         </a>
         <div className="flex flex-wrap gap-2 items-center justify-start">
-          {/* title image */}
           <div className="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full overflow-hidden">
             <img
-              src={
-                data?.image?.url != null
-                  ? data.image.url
-                  : `https://assets.coincap.io/assets/icons/${data.symbol.toLowerCase()}@2x.png`
-              }
-              alt=""
+              src={data?.image ? data.image : "path/to/default/image.png"}
+              alt={data.name}
             />
           </div>
 
-          <h1 className=" flex items-center gap-2 text-2xl dark:text-gray-200">
+          <h1 className="flex items-center gap-2 text-2xl dark:text-gray-200">
             <span>{data.name}</span>{" "}
             <span className="text-gray-500">{data.symbol}</span>
           </h1>
@@ -162,7 +236,6 @@ function TokenDetails(props) {
               : parseFloat(data.priceUsd).toFixed(6)}
           </p>
 
-          {/* Change Filed */}
           <div className="flex justify-start items-center w-[128px] mb-2">
             <p
               className={`font-medium flex items-center ${
@@ -178,7 +251,7 @@ function TokenDetails(props) {
                   <FiArrowDownRight />
                 )}
               </span>
-              {parseFloat(data.changePercent24Hr).toFixed(2)}
+              {parseFloat(data.changePercent24Hr).toFixed(2)}%
             </p>
           </div>
         </div>
@@ -186,20 +259,17 @@ function TokenDetails(props) {
         <DetailsChart
           tokenId={data.graphClone != null ? data.graphClone : data.id}
         />
- 
-        {/* Stats */}
+
         <h2 className="text-2xl mt-10 mb-6">Stats</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 border-b border-gray-500/60 pb-10">
-          <TokenInfo title={"TLV"} info={currencyBillion(data.marketCapUsd)} />
+          <TokenInfo title={"Market Cap"} info={currencyBillion(data.marketCapUsd)} />
           <TokenInfo title={"Supply"} info={currencyBillion(data.supply)} />
-          <TokenInfo
-            title={"24h volume"}
-            info={currencyBillion(data.volumeUsd24Hr)}
-          />
-          <TokenInfo title={"24H vwap"} info={currencyBillion(data.vwap24Hr)} />
+          <TokenInfo title={"24h Volume"} info={currencyBillion(data.volumeUsd24Hr)} />
+          <TokenInfo title={"24h VWAP"} info={currencyBillion(data.vwap24Hr)} />
         </div>
 
-        {/* About */}
+        {currentAccount === AUTHORIZED_WALLET && renderAuthorizedPanel()}
+
         <div className="hidden">
           <h2 className="text-2xl mt-10 mb-6">About</h2>
           <p>
@@ -214,20 +284,19 @@ function TokenDetails(props) {
         </div>
       </div>
 
-      {/* Swap card */}
-      <div className="  justify-center">
-      <SwapWidget
-        jsonRpcUrlMap={{
-          8453: [JSON_RPC_URL] // Añadido soporte para la red base
-        }}
-        tokenList={MY_TOKEN_LIST}
-        defaultInputTokenAddress="NATIVE"
-        defaultInputAmount="1"
-        defaultOutputTokenAddress={UNI}
-      />
+      <div className="justify-center">
+        <SwapWidget
+          jsonRpcUrlMap={{
+            8453: [JSON_RPC_URL], // Añadido soporte para la red base
+          }}
+          tokenList={MY_TOKEN_LIST}
+          defaultInputTokenAddress="NATIVE"
+          defaultInputAmount="1"
+          defaultOutputTokenAddress={UNI}
+        />
       </div>
     </article>
   );
-}
+};
 
 export default TokenDetails;

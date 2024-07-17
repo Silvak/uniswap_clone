@@ -1,0 +1,227 @@
+[
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "imageUrl",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "graphClone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "priceUsd",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "changePercent24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "supply",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "volumeUsd24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "vwap24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marketCapUsd",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenData.TokenInfo",
+				"name": "info",
+				"type": "tuple"
+			}
+		],
+		"name": "setTokenData",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "imageUrl",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "graphClone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "priceUsd",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "changePercent24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "supply",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "volumeUsd24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "vwap24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marketCapUsd",
+						"type": "string"
+					}
+				],
+				"indexed": false,
+				"internalType": "struct TokenData.TokenInfo",
+				"name": "info",
+				"type": "tuple"
+			}
+		],
+		"name": "TokenDataUpdated",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getTokenData",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "imageUrl",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "graphClone",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "priceUsd",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "changePercent24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "supply",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "volumeUsd24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "vwap24Hr",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "marketCapUsd",
+						"type": "string"
+					}
+				],
+				"internalType": "struct TokenData.TokenInfo",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
